@@ -1,0 +1,28 @@
+Image Upload:
+==================
+ public function postRegistration(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'photo' => 'image|mimes:jpg,jpeg,png,gif|max:100000',
+        ]);
+        $data = new User();
+        $data->name = $request->name;
+        $data->email = $request->email;
+
+        $image = $request->photo;
+        $imageName =  $image->getClientOriginalName();
+        $imageStore = $image->storeAs('public/image', $imageName);
+        $data->photo = $imageName;
+
+        $data->password = bcrypt($request->password);
+        $data->save();
+        return redirect('/')->with('success','Great! You have Successfully Registration in');
+    }
+php artisan storage:link
+
+Background Image url Path:
+=============================
+<img src="{{ url($main->bg_image)}}" style="height:250px; width:50%" alt="">
+style="background-image: url('/food-image/{{ $add_food->image }}');"

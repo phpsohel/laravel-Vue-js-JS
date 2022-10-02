@@ -1,0 +1,6 @@
+Folder Controller Create:
+==============================
+php artisan make:controller Admin/AdminController
+
+Route:
+Route::get('admin/dashboard', 'App\Http\Controllers\Admin\AdminController@Dashboard');

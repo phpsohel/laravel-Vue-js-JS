@@ -1,0 +1,28 @@
+Link Css And Js:
+==================
+       <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+Html:
+========
+	<button id="weet" onclick="check();"> Added</button>
+                <script>
+                    function check(){
+                        swal({
+                            title: "Are you sure?",
+                            text: "Once deleted, you will not be able to recover this imaginary file!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    swal("Poof! Your Data deleted!", {
+                                        icon: "success",
+                                    });
+                                } else {
+                                    swal("Your file is safe!");
+                                }
+                            });
+                    }
+                </script>
