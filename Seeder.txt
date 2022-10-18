@@ -1,3 +1,4 @@
+//Dummy data Used For Seeder 
 Create Seeder:
 ================
 php artisan make:seeder AdminTableSeeder

@@ -26,3 +26,6 @@ Background Image url Path:
 =============================
 <img src="{{ url($main->bg_image)}}" style="height:250px; width:50%" alt="">
 style="background-image: url('/food-image/{{ $add_food->image }}');"
+
+image Storage path:
+<img style= "height:100px;" src="{{ asset('storage/uploads') }}/{{ $product->image }}" alt="" >

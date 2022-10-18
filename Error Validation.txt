@@ -8,6 +8,13 @@ $request->validate([
 
 //Error Message:
 ==================
+@if($errors->has('title'))
+                <div class="alert alert-success alert-dismissible">
+                   <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>{{ $errors->first('title') }}</strong>
+                </div>
+@endif
+
 @if($errors->has('name'))
      <div class="alert alert-danger alert-dismissible text-center">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -17,10 +24,4 @@ $request->validate([
 
 @if($errors->has('email'))
     <span class="text-danger">{{$errors->first('email')}}</span>
-@endif
-
-//Success Message:
-======================
-@if ($message = Session::get('success'))
-       <div class="alert alert-info">{{ $message }} </div>
 @endif

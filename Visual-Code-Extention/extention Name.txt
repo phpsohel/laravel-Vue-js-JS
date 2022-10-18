@@ -1,0 +1,10 @@
+Name:
+1. Laravel Blade Snippets
+2. Laravel Snippets
+3. Laravel Blade Spacer
+4. Laravel Artisan
+5. Laravel Extra Intellisense
+6. Laravel goto Controller
+7. Laravel goto View
+8. DotENV syntax highlighting
+9. Save Typing
