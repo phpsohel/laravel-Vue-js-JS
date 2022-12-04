@@ -1,0 +1,3 @@
+public function domain_cunnect(){
+        return $this->hasOne(Domain_Hosting::class, 'id', 'cust_id');
+    }

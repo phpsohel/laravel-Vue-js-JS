@@ -1,11 +1,17 @@
 Link Css And Js:
 ==================
+link:
+==========
       <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+button:
+==========
+<a href="{{ route('admin.index',$row-id)}}" id="delete" class="btn btn-danger">Delete</a>
 Html:
 ========
-<a href="" id="delete" class="btn btn-danger">Delete</a>
+
+
   $(document).on('click', '#delete', function (e){
         e.preventDefault();
         var link = $(this).attr('href');
@@ -25,7 +31,16 @@ Html:
             });
     });
 or:
-	<button id="weet" onclick="check();"> Added</button>
+=====================
+link:
+==========
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+button:
+==========
+<button href="{{ route('admin.index',$row-id)}}" id="weet" onclick="check();"> Added</button>
+
                 <script>
                     function check(){
                         swal({

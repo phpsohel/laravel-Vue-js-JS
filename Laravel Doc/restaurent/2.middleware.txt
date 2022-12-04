@@ -1,0 +1,8 @@
+//Middleware:
+=================
+php artisan make:middleware AdminMiddleware
+//kernal.php:
+===============
+ protected $routeMiddleware = [
+	'admin' => \Illuminate\Auth\Middleware\AdminMiddleware::class,
+]

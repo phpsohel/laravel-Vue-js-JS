@@ -1,0 +1,6 @@
+//Breeze:
+=================
+app||guest:
+==============
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" href="{{ asset('js/app.js') }}">

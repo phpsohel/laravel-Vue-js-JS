@@ -1,11 +1,8 @@
- 
-id Increment:
-=================
-@php
-      $i = 0;
-@endphp
-
-@foreach ($categories as $category )
+<tbody>
+     	@php
+   		$i = 0;
+	@endphp
+                    @foreach ($categories as $category )
                     <tr>
                       <td>{{ ++$i }}</td>
                       <td>{{ $category->cat_name }}</td>
@@ -17,4 +14,5 @@ id Increment:
                         <a href="{{ route('admin.delete-category', $category->id) }}" class="text-danger"> Delete</a>
                       </td>
                     </tr>
-@endforeach
+                    @endforeach
+                  </tbody>
