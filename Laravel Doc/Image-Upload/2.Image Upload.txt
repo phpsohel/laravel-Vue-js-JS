@@ -51,6 +51,15 @@ Image Update:
         // $update->save();
         return redirect('admin/all-employee');
 
+//Blade file:
+=====================
+@if(!empty($users->profile_image))
+        <img src="{{ asset('public/upload/admin_images/'.$users->profile_image) }}" alt="{{ $users->name }}" class="avatar-md rounded-circle">
+@else
+	<img src="{{ asset('public/upload/no_image.jpg') }}" alt="{{ $users->name }}" class="avatar-md rounded-circle">
+@endif
+
+
 Background Image url Path:
 =============================
 <img src="{{ url($main->bg_image)}}" style="height:250px; width:50%" alt="">
