@@ -1,3 +1,23 @@
+index.blade.php:
+=========================
+@foreach($remainders as $remainder)
+<li>
+    <a class="btn btn-link" data-toggle="modal" data-target="#myModal{{ $remainder->id }}"><i class=" dripicons-trash"></i> Delete</a>
+</li>
+@include("remainder.delete_modal")
+@endforeach
+
+//Controller:
+==============
+  public function destroy($id)
+    {
+        $lims_employee_data = Remainder::find($id);
+        $lims_employee_data->delete();
+        return redirect('remainder')->with('not_permitted', 'Remainder deleted successfully');
+    }
+
+//delete_modal.blade.php:
+==============================
 <a class="btn btn-link" data-toggle="modal" data-target="#myModal{{ $deposit->id }}"><i class=" dripicons-trash"></i> Delete</a>
             <!---Modal start----->
             <div class="modal" id="myModal{{ $deposit->id }}">
