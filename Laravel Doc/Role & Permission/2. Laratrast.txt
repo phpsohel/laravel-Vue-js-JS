@@ -12,6 +12,7 @@ php artisan vendor:publish --tag="laratrust-seeder"
 composer dump-autoload
 
 //In the database/seeds/DatabaseSeeder.php file you have to add this to the run method:
+
 	$this->call(LaratrustSeeder::class);
 
 //Your config/laratrust_seeder.php file looks like this by default:

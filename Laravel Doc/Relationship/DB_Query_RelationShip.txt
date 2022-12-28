@@ -1,16 +1,18 @@
  public function Add_domain()
     {
-        $domains = //Db::table('domain_hostings')//
-                    Domain_Hosting::select('domain_hostings.*','customers.name')
+        $domains = Domain_Hosting::select('domain_hostings.*','customers.name')
                     ->join('customers', 'domain_hostings.cust_id', 'customers.id')
                     ->get();
+
+		<td>{{ $user->customers->name ?? ''}}</td>
+
        return view('admin.domain.add-domain', compact('domains'));
     }
 View File:
 =================
 <select name="cust_id" class="form-control select2 select2-hidden-accessible" style="width: 100%;">
-                                                        @foreach($domains as $key => $domain)
-                                                        <option value="">{{ $domain->name ?? '' }}</option>
-                                                        @endforeach
+      @foreach($domains as $key => $domain)
+         <option value="">{{ $domain->name ?? '' }}</option>
+      @endforeach
 
-                                                    </select>
+</select>

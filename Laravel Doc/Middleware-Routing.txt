@@ -15,3 +15,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
             route::get('profile', 'index');
         });
 });
+And:
+===========
+Route::group(['prefix' => 'dashboard', 'middleware'=> 'auth'], function(){
+        Route::get('/', [AdminControoler::class, 'index'])->name('dashboard');
+        //Middleware
+        Route::group(['Middleware' => 'Admin'], function(){
+
+        });
+});
