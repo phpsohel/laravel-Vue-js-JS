@@ -16,9 +16,7 @@ public function Expire()
     }
     public function ExpireSearch(Request $request)
     {
-       //return $request->all();
         $from = $request->from_date;
-
         $to   = $request->to_date;
         $cust_name   = $request->cust_name;
 
@@ -44,7 +42,6 @@ public function Expire()
         }else{
               $domains = Domain_Hosting::where('domain_expiry_date',date('y-m-d'))->get();
         }
-
         return view('admin.expire.all-expire', compact('domains','customers','from','to','cust_name'));
     }
 
