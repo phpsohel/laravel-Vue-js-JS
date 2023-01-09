@@ -1,4 +1,5 @@
-  if($request->file('photo')){
+'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  
+if($request->file('photo')){
             $file = $request->file('photo');
             $fileName = date('Y-m-d ').$file->getClientOriginalName();
             $file->move(public_path('member_image'),$fileName);

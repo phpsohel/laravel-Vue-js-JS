@@ -1,117 +1,83 @@
-//Laratrast :
-
- composer require spatie/laravel-permission
-
-//config/app.php file:
-
-'providers' => [
-    // ...
-    Spatie\Permission\PermissionServiceProvider::class,
-];
-
-//You should publish the migration and the config/permission.php config file with:
-
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
-
- php artisan optimize:clear
- # or
- php artisan config:clear
-
- php artisan migrate
-
-//Model-->User.php
+app/model: User.php
 ===========================
-
-se Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
-}
+//Databaseseeder.php
 
-=======================================================================================
-//Seeder Create:
-======================
-php artisan make:seed RolePermissionSeeder
-php artisan make:seed UserSeeder
+public function run()
+    {
+       $this->call([
+            PermissionsDemoSeeder::class,
+       ]);
+    }
 
-//DatabaseSeeder.php
-===========================
+//Create seeder
+php artisan make:seed PermissionsDemoSeeder
+
+//database/seeders/PermissionsDemoSeeder.php
+<?php
+
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Database\RolePermissionSeeder;
-public function run()
-    {
-	$this->call(UserSeeder::class);
- 	$this->call(RolePermissionSeeder::class);
-    }
-
-// UserSeeder.php
-=======================
-use App\Models\User;
-public function run()
-    {
-       User::create([ //Model User Input
-            'name' => 'Hardik',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin123'),
-        ]);
-    }
-
-//Seeder migrate Comand:
-============================
-php artisan db:seed
-
-//RolePermissionSeeder.php
-===============================
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-===================================================================================================
-//Middleware->kernal.php
-==============================
-protected $routeMiddleware = [
-    // ...
-    'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-    'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-    'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
-];
-
-//Seeder Create:
-php artisan make:seeder RoleSeeder
-php artisan make:seeder AdminSeeder
-
-//Roleseeder.php
-======================
 use Spatie\Permission\Models\Role;
-public function run()
+use DB;
+use Spatie\Permission\PermissionRegistrar;
+
+class PermissionsDemoSeeder extends Seeder
+{
+    /**
+     * Create the initial roles and permissions.
+     *
+     * @return void
+     */
+    public function run()
     {
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'writer']);
-        Role::create(['name' => 'user']);
+        // Reset cached roles and permissions
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // create permissions
+        Permission::create(['name' => 'edit member']);
+        Permission::create(['name' => 'update member']);
+        Permission::create(['name' => 'view member']);
+        Permission::create(['name' => 'delete member']);
+
+        // create roles and assign existing permissions
+        $role1 = Role::create(['name' => 'editor']);
+        $role1->givePermissionTo('edit member');
+        $role1->givePermissionTo('view member');
+
+        $role2 = Role::create(['name' => 'admin']);
+        $role2->givePermissionTo('edit member');     
+        $role2->givePermissionTo('update member');
+        $role2->givePermissionTo('view member');
+        $role2->givePermissionTo('delete member');
+
+        $role3 = Role::create(['name' => 'Super-Admin']);
+        // gets all permissions via Gate::before rule; see AuthServiceProvider
+
+        // create demo users
+        $user =  \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('admin123')
+        ]);
+        $user->assignRole($role1);
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'super admin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('admin123')
+        ]);
+        $user->assignRole($role2);
+
+        $user =  DB::table('users')->insert([
+            'name' => 'editor',
+            'email' => 'ediotr@gmail.com',
+            'password' => bcrypt('admin123')
+        ]);
+        $user->assignRole($role3);
     }
 }
-
-//AdminSeeder.php
-======================
-use App\Models\User;
-public function run()
-    {
-        User::create([
-             'name' => 'admin',
-             'email'    => 'admin@email.com',
-            'password' => bcrypt(['admin123'])
-        ]);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,19 +3,23 @@ Create Seeder:
 ================
 php artisan make:seeder AdminTableSeeder
 Database\Seeder\AdminTableSeeder:
-use DB;
+use Illuminate\Support\Facades\DB;
 
 	DB::table('admins')->insert([
 		'name' => 'sohel',
 		'email' => 'sohel123@gmail.com',
-		'password' => 'sohel123'
+		'password' => bcrypt('sohel123')
 ]);
 
 //Declarece Class Name:
+============================
+
 Database\Seeder\DatabaseSeeder:
 public function run()
     {
-        $this->call(AdminTableseeder::class);
+        $this->call([
+			AdminTableseeder::class,
+		]);
     }
 
 //Then Command:
